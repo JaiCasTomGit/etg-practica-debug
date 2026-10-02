@@ -1,0 +1,17 @@
+version: '3.8'
+services:
+  tomcat:
+    image: tomcat:10.0-jdk17   # Ajusta la versión a la que necesite tu aplicación
+    container_name: tomcat-vscode-lab
+    ports:
+      # Puerto para acceder a la aplicación web
+      - "8888:8080"
+      # Puerto para el depurador remoto (JDWP)
+      - "5005:5005"
+    volumes:
+      # Mapeamos las aplicaciones que generemos (deploy) con las desplegadas (tomcat)
+      - ./deploy:/usr/local/tomcat/webapps
+    environment:
+      # Habilita el agente de depuración de Java (JPDA)
+      - JPDA_OPTS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
+    command: catalina.sh jpda run
