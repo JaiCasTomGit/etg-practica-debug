@@ -1,4 +1,4 @@
-package main.java.com.ejemplo;
+package com.ejemplo;
 
 import java.io.IOException;
 import java.time.LocalTime;
